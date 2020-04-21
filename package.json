@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "install:clean": "rm -rf node_modules/ && rm -rf yarn.lock && yarn && yarn start",
+    "markdownlint": "markdownlint *.md"
   },
   "private": true,
   "dependencies": {
@@ -47,9 +48,14 @@
     "@angular/cli": "9.0.6",
     "@angular/compiler-cli": "9.0.6",
     "@angular/language-service": "9.0.6",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/jasmine": "3.5.9",
     "@types/node": "13.9.1",
     "codelyzer": "5.2.1",
+    "commitizen": "^4.0.4",
+    "cz-customizable": "^6.2.0",
+    "husky": "^4.2.5",
     "jasmine-core": "3.5.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.4.1",
@@ -58,9 +64,22 @@
     "karma-coverage-istanbul-reporter": "2.1.1",
     "karma-jasmine": "3.1.1",
     "karma-jasmine-html-reporter": "1.5.2",
+    "markdownlint": "^0.20.1",
+    "markdownlint-cli": "^0.22.0",
     "protractor": "5.4.3",
     "ts-node": "8.6.2",
     "tslint": "6.1.0",
     "typescript": "3.7.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn markdownlint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
